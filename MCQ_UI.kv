@@ -1,0 +1,494 @@
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+ScreenManagement:
+    transition: SlideTransition()
+    WelcomeScreen:
+	CreateSheet:
+	GradingMethod:
+	AnsMarkScreen:
+
+<WelcomeScreen>:
+    name: 'welcome'
+	BoxLayout:
+		orientation: 'vertical'
+		BoxLayout:
+			Image:
+				source:'MCQ_img.png'
+			
+        
+		FloatLayout:
+			size_hint_y: 0.5
+			Button:
+				text: 'Create a new Answer Sheet'
+				text_size: self.size
+				halign: 'center'
+				valign: 'middle'
+				size_hint: 0.25,0.27
+				pos_hint: {"right": 0.61, "top":1}
+				on_press: 
+					root.manager.transition = SlideTransition(direction="left")
+					root.manager.current = 'setup answer sheet'
+				
+			Button:
+				text: 'Mark an exam'
+				text_size: self.size
+				halign: 'center'
+				valign: 'middle'
+				size_hint:0.25,0.27
+				pos_hint: {"right": 0.61, "top":0.7}
+				on_press: 
+					root.manager.transition = SlideTransition(direction="left")
+					root.manager.current = 'setup marking'
+	
+
+
+<CreateSheet>:
+    name: 'setup answer sheet'
+	GridLayout:
+	    cols: 1
+		BoxLayout:
+		    size_hint: 0.1,0.3
+		    GridLayout:
+			    cols:1
+				padding: 10
+				spacing: 2
+				Label:
+					text: "Please enter the following spcifications"
+				Label:
+					text: "Note:"
+				Label:
+					text: "- Maximum number of questions is 160."
+				Label:
+					text:"- Maximum number of available choices is 5."
+		
+		BoxLayout: ## here is one Box
+			GridLayout:
+				cols: 1
+				spacing: 30
+				padding: 10,40
+				Label:
+					text: 'Number of questions'  
+					size_hint: 0.2,0.1
+					text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+				
+				Label:
+					text: 'Number of available choices'  
+					size_hint: 0.2,0.1
+					text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+
+			
+				Label:
+					text: 'Title or Subject'  
+					size_hint: 0.2,0.1
+					text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+				
+				
+				Label:
+					text: 'Class'  
+					size_hint: 0.2,0.1
+					text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+				
+				Label:
+					text: 'Date'  
+					size_hint: 0.2,0.1
+					text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+					
+					
+			GridLayout:
+				cols: 1
+				spacing: 30
+				padding: 10,40
+				TextInput:
+					id: nq
+					size_hint: 0.2,0.1
+					multiline: False
+				    on_focus:
+						self.background_color=[1,1,1,1]
+						
+				TextInput:
+					id: nc
+					size_hint: 0.2,0.1
+					multiline: False
+					on_focus:
+						self.background_color=[1,1,1,1]
+			
+				TextInput:
+					id: ttl
+					size_hint: 0.2,0.1
+					multiline: False
+					on_focus:
+						self.background_color=[1,1,1,1]
+				
+				
+				TextInput:
+					id: clss
+					size_hint: 0.2,0.1
+					multiline: False
+					on_focus:
+						self.background_color=[1,1,1,1]
+				
+				TextInput:
+					id: dt
+					size_hint: 0.2,0.1
+					multiline: False
+					on_focus:
+						self.background_color=[1,1,1,1]
+			
+			GridLayout:
+				cols:1	
+                padding: 30,130	
+                spacing: 50				
+				
+				Button:
+					text: 'Create'
+					text_size: self.size
+					halign: 'center'
+					valign: 'middle'
+                    size_hint: 0.2,0.1
+					on_press: 
+						root.check(nq.text,nc.text,ttl.text,clss.text)
+						
+				Button:
+					text: 'Back'
+					text_size: self.size
+					halign: 'center'
+					valign: 'middle'
+                    size_hint: 0.2,0.1
+			        on_press:
+					    root.manager.transition = SlideTransition(direction="right")
+			            root.manager.current = 'welcome'
+			
+<GradingMethod>:
+    name: 'setup marking'
+	GridLayout:
+	    cols: 1
+		
+		BoxLayout: ## here is one Box
+			GridLayout:
+				cols: 1
+				spacing: 10
+				padding: 10,20
+				
+				Label:
+					text: 'Number of questions'  
+					size_hint: 0.2,0.1
+					text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+				
+				Label:
+					text: 'Number of available choices'  
+					size_hint: 0.2,0.1
+					text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+
+			    Label:
+                    text: 'Grade for correct answewr'
+					size_hint: 0.2,0.1
+					text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+				
+				Label:
+                    text: 'Correct with negative grade'
+					size_hint: 0.2,0.1
+					text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+			    
+				Label:
+                    text: 'Negative grade'
+					size_hint: 0.2,0.1
+					text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+					
+				Label:
+                    text: 'grade in ncase that student chose just one correct answer insted of two'
+                    size_hint: 0.2,0.1
+					text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+				
+				Label:
+                    text: 'Number of Sections'
+					size_hint: 0.2,0.1
+                    text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'				
+				
+				Label:
+                    text: 'Number of students in each section'
+					size_hint: 0.2,0.1
+                    text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'					
+				
+				Label:
+                    text: 'Title to save the file'
+					size_hint: 0.2,0.1
+                    text_size: self.width, self.height
+					valign: 'middle'
+                    halign: 'center'
+				
+				Button:
+                    text: 'Upload empty answer sheet'
+					text_size: self.size
+					halign: 'center'
+					valign: 'middle'
+                    size_hint: 0.2,0.1
+					on_press:
+						root.f=emt
+					    root.show_load()
+					
+					
+				Button:
+                    text: "Upload a folder contains students' sheets"
+					text_size: self.size
+					halign: 'center'
+					valign: 'middle'
+                    size_hint: 0.2,0.1
+					on_press:
+						root.f=sf
+					    root.show_load()
+			
+			GridLayout:
+				cols: 1
+				spacing: 10
+				padding: 10,20
+				size_hint: 0.5,1
+				
+				TextInput:
+				    id: nq
+					size_hint: 0.2,0.1
+					multiline: False
+					on_focus:
+						self.background_color=[1,1,1,1]
+				
+				TextInput:
+				    id: nc
+					size_hint: 0.2,0.1
+					on_focus:
+						self.background_color=[1,1,1,1]
+
+			    TextInput:
+					id: cag #cor ans grade
+                    size_hint: 0.2,0.1
+					on_focus:
+						self.background_color=[1,1,1,1]
+				
+				CheckBox:
+					id: cwn #cor with neg
+                    size_hint: 0.2,0.1  
+					color: (125,0,200, 1)
+			    
+				TextInput:
+                    id: ng
+                    size_hint: 0.2,0.1
+					
+					
+				
+				TextInput:
+					id: ont # one insted of two
+                    size_hint: 0.2,0.1
+					on_focus:
+						self.background_color=[1,1,1,1]
+				
+				TextInput:
+                    id: nsec
+                    size_hint: 0.2,0.1
+					on_focus:
+						self.background_color=[1,1,1,1]
+					
+				TextInput:
+                    id: stu
+                    size_hint: 0.2,0.1
+					on_focus:
+						self.background_color=[1,1,1,1]
+				
+				TextInput:
+                    id: ttls # title to save
+                    size_hint: 0.2,0.1
+					on_focus:
+						self.background_color=[1,1,1,1]
+		
+        		
+                TextInput:
+                    id: emt # empty answer sheet
+                    size_hint: 0.2,0.1
+					on_focus:
+						self.background_color=[1,1,1,1]
+				    
+				
+				TextInput:
+                    id: sf # students folder
+                    size_hint: 0.2,0.1
+					on_focus:
+						self.background_color=[1,1,1,1]
+					
+			GridLayout:
+				cols:1	
+                padding: 30,130	
+                spacing: 50	
+				size_hint: 0.5,1
+				Button:
+				    id: cr
+					text: 'Continue'
+					size_hint: 0.1,0.5
+					text_size: self.size
+					halign: 'center'
+					valign: 'middle'
+					on_press:
+						root.check(["nq", "nc", "cag","cwn","ng","ont","nsec","stu","ttls","emt","sf"])
+						
+				
+				
+				Button:
+					text: 'Back'
+					size_hint: 0.3,0.5
+					text_size: self.size
+					halign: 'center'
+					valign: 'middle'
+					on_press:
+					    root.manager.transition = SlideTransition(direction="right")
+			            root.manager.current = 'welcome'
+
+ 						
+						
+						
+<LoadDialog>:
+	id: ld
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileBrowser:
+            id: filechooser
+			
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.selection)
+
+
+<AnsMarkScreen>:
+    name: 'cor ans'
+	id: sc
+	GridLayout:
+		cols:1
+		raws:2
+		
+		
+		BoxLayout:
+			id: bx1
+			orientation: "horizontal"
+			size_hint: 1,0.1
+			padding: 5,5
+			
+			AnchorLayout:
+				anchor_x: 'right'
+				anchor_y: 'center'
+				
+				Label:
+					id: tst
+					text: "Please, select the correct answer(s) for each question."
+				
+		BoxLayout:
+			id: bx2
+			orientation: "horizontal"
+			size_hint: 1, 0.9
+			
+			BoxLayout:
+				id: bx21
+				size_hint: 0.6, 1
+				orientation: "vertical"
+				spacing: 10
+				
+				ScrollView:
+					id: scv
+					size_hint: 1,1
+					size: bx21.width, bx21.height
+					
+					GridLayout:
+						id: grd
+						cols: 1
+						spacing: 20
+						size_hint_y: None
+						size_hint_x: 0.75
+						height: grd.minimum_height
+						
+						
+						
+			BoxLayout:
+				size_hint: 0.2,1	
+				
+				GridLayout:
+					cols: 1	
+					padding:0,20,10,20
+					spacing:5
+				
+						
+					ToggleButton:
+						id: lbtn
+						text: "Load answers board"
+						text_size: self.size
+						halign: 'center'
+						valign: 'middle'
+						size_hint_x: 0.1
+						on_press:
+							root.buildans()
+				
+					
+					ToggleButton:
+						id: sbtn
+						text: "Save"
+						text_size: self.size
+						halign: 'center'
+						valign: 'middle'
+						size_hint_x:0.1
+						on_press:
+							root.states()
+							root.CorrAnss()
+				
+				
+					
+					ToggleButton:
+						id: mbtn
+						text: "Mark"
+						text_size: self.size
+						halign: 'center'
+						valign: 'middle'
+						size_hint_x:0.1
+						on_press:
+							root.Student()
+				
+					
+					ToggleButton:
+						id: rtbn
+						text: "Final result"
+						text_size: self.size
+						halign: 'center'
+						valign: 'middle'
+						size_hint_x:0.1
+						on_press:
+							root.resultfile()
+
+							
+				
